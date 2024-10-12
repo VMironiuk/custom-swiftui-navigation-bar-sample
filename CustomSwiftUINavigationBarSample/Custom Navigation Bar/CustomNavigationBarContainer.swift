@@ -28,6 +28,15 @@ struct CustomNavigationBarContainer<Content: View>: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     .toolbar(.hidden)
+    .onPreferenceChange(CustomNavigationBarTitlePreferenceKey.self) { value in
+      title = value
+    }
+    .onPreferenceChange(CustomNavigationBarSubtitlePreferenceKey.self) { value in
+      subtitle = value
+    }
+    .onPreferenceChange(CustomNavigationBarShowBackButtonPreferenceKey.self) { value in
+      showBackButton = value
+    }
   }
 }
 
@@ -37,6 +46,8 @@ struct CustomNavigationBarContainer<Content: View>: View {
       Color.green.ignoresSafeArea()
       Text("Content")
         .foregroundStyle(.white)
+        .customNavigationTitle("Title")
+        .customNavigationSubtitle("Subtitle")
     }
   }
 }
