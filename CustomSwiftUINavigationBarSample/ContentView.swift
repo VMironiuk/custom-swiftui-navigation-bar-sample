@@ -19,9 +19,12 @@ struct ContentView: View {
     NavigationStack(path: $path) {
       List {
         Section {
-          NavigationLink("Title w/ Subtitle") {
+          CustomNavigationLink {
             Text("Title with Subtitle")
-              .navigationTitle("Default title")
+              .customNavigationTitle("Custom title")
+              .customNavigationSubtitle("Subtitle!")
+          } label: {
+            Text("Title w/ Subtitle")
           }
           NavigationLink("Title Label w/ Subtitle Label") {
             Text("Title Label with Subtitle Label")
