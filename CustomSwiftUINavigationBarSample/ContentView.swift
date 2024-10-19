@@ -66,13 +66,31 @@ struct ContentView: View {
         }
       }
       .navigationDestination(for: Route.self) { route in
-        switch route {
-        case .titleSubtitle:
-          Text("Title with Subtitle")
-            .navigationTitle("Default title")
-        case .titleLabelSubtitleLabel:
-          Text("Title Label with Subtitle Label")
-            .navigationTitle("Default title")
+        CustomNavigationBarContainer {
+          switch route {
+          case .titleSubtitle:
+            Text("Title with Subtitle")
+              .customNavigationTitle("Custom title")
+              .customNavigationSubtitle("Subtitle!")
+          case .titleLabelSubtitleLabel:
+            Text("Title Label with Subtitle Label")
+              .customNavigationTitleLabel {
+                HStack {
+                  Image(systemName: "note.text")
+                  Text("Title label")
+                    .font(.title)
+                    .fontWeight(.semibold)
+                }
+              }
+              .customNavigationSubtitleLabel {
+                HStack {
+                  Image(systemName: "note.text")
+                  Text("Subtitle label")
+                }
+              }
+              .customNavigationBarBackground(.teal)
+              .customNavigationBarForeground(.black)
+          }
         }
       }
     }
