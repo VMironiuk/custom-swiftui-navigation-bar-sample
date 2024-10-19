@@ -43,7 +43,14 @@ struct CustomNavigationBarSubtitleLabelPreferenceKey: PreferenceKey {
 }
 
 struct CustomNavigationBarBackgroundPreferenceKey: PreferenceKey {
-  static var defaultValue: Color = .clear
+  static var defaultValue: Color = .white
+  static func reduce(value: inout Color, nextValue: () -> Color) {
+    value = nextValue()
+  }
+}
+
+struct CustomNavigationBarForegroundPreferenceKey: PreferenceKey {
+  static var defaultValue: Color = .black
   static func reduce(value: inout Color, nextValue: () -> Color) {
     value = nextValue()
   }
@@ -74,6 +81,10 @@ extension View {
   
   func customNavigationBarBackground(_ background: Color) -> some View {
     preference(key: CustomNavigationBarBackgroundPreferenceKey.self, value: background)
+  }
+  
+  func customNavigationBarForeground(_ foreground: Color) -> some View {
+    preference(key: CustomNavigationBarForegroundPreferenceKey.self, value: foreground)
   }
 }
 

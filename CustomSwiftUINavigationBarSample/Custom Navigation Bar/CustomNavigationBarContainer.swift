@@ -14,7 +14,8 @@ struct CustomNavigationBarContainer<Content: View>: View {
   @State private var subtitle: String? = "Subtitle"
   @State private var titleLabel: EquatableViewContainer? = nil
   @State private var subtitleLabel: EquatableViewContainer? = nil
-  @State private var background: Color = .clear
+  @State private var background: Color = .white
+  @State private var foreground: Color = .black
   
   init(@ViewBuilder content: () -> Content) {
     self.content = content()
@@ -28,7 +29,8 @@ struct CustomNavigationBarContainer<Content: View>: View {
         titleLabel: titleLabel?.view,
         subtitle: subtitle,
         subtitleLabel: subtitleLabel?.view,
-        background: background
+        background: background,
+        foreground: foreground
       )
       content
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -52,6 +54,9 @@ struct CustomNavigationBarContainer<Content: View>: View {
     .onPreferenceChange(CustomNavigationBarBackgroundPreferenceKey.self) { value in
       background = value
     }
+    .onPreferenceChange(CustomNavigationBarForegroundPreferenceKey.self) { value in
+      foreground = value
+    }
   }
 }
 
@@ -64,6 +69,7 @@ struct CustomNavigationBarContainer<Content: View>: View {
         .customNavigationTitle("Title")
         .customNavigationSubtitle("Subtitle")
         .customNavigationBarBackground(.blue)
+        .customNavigationBarForeground(.white)
     }
   }
 }
@@ -89,6 +95,7 @@ struct CustomNavigationBarContainer<Content: View>: View {
           }
         }
         .customNavigationBarBackground(.blue)
+        .customNavigationBarForeground(.white)
     }
   }
 }

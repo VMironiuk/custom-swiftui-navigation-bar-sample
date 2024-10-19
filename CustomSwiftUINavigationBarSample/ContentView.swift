@@ -24,6 +24,7 @@ struct ContentView: View {
               .customNavigationTitle("Custom title")
               .customNavigationSubtitle("Subtitle!")
               .customNavigationBarBackground(.blue)
+              .customNavigationBarForeground(.white)
           } label: {
             Text("Title w/ Subtitle")
           }
@@ -45,6 +46,7 @@ struct ContentView: View {
                 }
               }
               .customNavigationBarBackground(.blue)
+              .customNavigationBarForeground(.white)
           } label: {
             Text("Title Label w/ Subtitle Label")
           }
