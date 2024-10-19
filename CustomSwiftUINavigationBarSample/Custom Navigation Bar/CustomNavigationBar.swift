@@ -14,6 +14,7 @@ struct CustomNavigationBar: View {
   let titleLabel: AnyView?
   let subtitle: String?
   let subtitleLabel: AnyView?
+  let background: Color
   
   var body: some View {
     HStack {
@@ -32,7 +33,7 @@ struct CustomNavigationBar: View {
     .tint(.white)
     .foregroundStyle(.white)
     .font(.headline)
-    .background(Color.blue)
+    .background(background)
   }
 }
 
@@ -72,7 +73,8 @@ private extension CustomNavigationBar {
       title: "Title",
       titleLabel: nil,
       subtitle: "Subtitle",
-      subtitleLabel: nil
+      subtitleLabel: nil,
+      background: .blue
     )
     Spacer()
   }
@@ -97,7 +99,8 @@ private extension CustomNavigationBar {
           Image(systemName: "text.document.fill")
           Text("Subtitle label")
         }
-      )
+      ),
+      background: .blue
     )
     Spacer()
   }

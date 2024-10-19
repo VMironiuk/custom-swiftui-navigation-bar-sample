@@ -42,6 +42,13 @@ struct CustomNavigationBarSubtitleLabelPreferenceKey: PreferenceKey {
   }
 }
 
+struct CustomNavigationBarBackgroundPreferenceKey: PreferenceKey {
+  static var defaultValue: Color = .clear
+  static func reduce(value: inout Color, nextValue: () -> Color) {
+    value = nextValue()
+  }
+}
+
 extension View {
   func showBackButton(_ showBackButton: Bool) -> some View {
     preference(key: CustomNavigationBarShowBackButtonPreferenceKey.self, value: showBackButton)
@@ -63,6 +70,10 @@ extension View {
   func customNavigationSubtitleLabel<Label: View>(@ViewBuilder label: @escaping () -> Label) -> some View {
     let container = EquatableViewContainer(view: AnyView(label()))
     return preference(key: CustomNavigationBarSubtitleLabelPreferenceKey.self, value: container)
+  }
+  
+  func customNavigationBarBackground(_ background: Color) -> some View {
+    preference(key: CustomNavigationBarBackgroundPreferenceKey.self, value: background)
   }
 }
 
