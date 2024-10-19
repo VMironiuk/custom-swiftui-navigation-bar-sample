@@ -12,6 +12,8 @@ struct CustomNavigationBarContainer<Content: View>: View {
   @State private var showBackButton: Bool = true
   @State private var title: String = "Title"
   @State private var subtitle: String? = "Subtitle"
+  @State private var titleLabel: EquatableViewContainer? = nil
+  @State private var subtitleLabel: EquatableViewContainer? = nil
   
   init(@ViewBuilder content: () -> Content) {
     self.content = content()
@@ -22,7 +24,9 @@ struct CustomNavigationBarContainer<Content: View>: View {
       CustomNavigationBar(
         showBackButton: showBackButton,
         title: title,
-        subtitle: subtitle
+        titleLabel: titleLabel?.view,
+        subtitle: subtitle,
+        subtitleLabel: subtitleLabel?.view
       )
       content
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -37,10 +41,16 @@ struct CustomNavigationBarContainer<Content: View>: View {
     .onPreferenceChange(CustomNavigationBarShowBackButtonPreferenceKey.self) { value in
       showBackButton = value
     }
+    .onPreferenceChange(CustomNavigationBarTitleLabelPreferenceKey.self) { value in
+      titleLabel = value
+    }
+    .onPreferenceChange(CustomNavigationBarSubtitleLabelPreferenceKey.self) { value in
+      subtitleLabel = value
+    }
   }
 }
 
-#Preview {
+#Preview("Titles") {
   CustomNavigationBarContainer {
     ZStack {
       Color.green.ignoresSafeArea()
@@ -48,6 +58,30 @@ struct CustomNavigationBarContainer<Content: View>: View {
         .foregroundStyle(.white)
         .customNavigationTitle("Title")
         .customNavigationSubtitle("Subtitle")
+    }
+  }
+}
+
+#Preview("Labels") {
+  CustomNavigationBarContainer {
+    ZStack {
+      Color.green.ignoresSafeArea()
+      Text("Content")
+        .foregroundStyle(.white)
+        .customNavigationTitleLabel {
+          HStack {
+            Image(systemName: "note.text")
+            Text("Title label")
+              .font(.title)
+              .fontWeight(.semibold)
+          }
+        }
+        .customNavigationSubtitleLabel {
+          HStack {
+            Image(systemName: "note.text")
+            Text("Subtitle label")
+          }
+        }
     }
   }
 }

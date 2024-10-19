@@ -26,13 +26,30 @@ struct ContentView: View {
           } label: {
             Text("Title w/ Subtitle")
           }
-          NavigationLink("Title Label w/ Subtitle Label") {
+          
+          CustomNavigationLink {
             Text("Title Label with Subtitle Label")
-              .navigationTitle("Default title")
+              .customNavigationTitleLabel {
+                HStack {
+                  Image(systemName: "note.text")
+                  Text("Title label")
+                    .font(.title)
+                    .fontWeight(.semibold)
+                }
+              }
+              .customNavigationSubtitleLabel {
+                HStack {
+                  Image(systemName: "note.text")
+                  Text("Subtitle label")
+                }
+              }
+          } label: {
+            Text("Title Label w/ Subtitle Label")
           }
         } header: {
           Text("Navigation Link")
         }
+        
         Section {
           Button("Title w/ Subtitle") {
             path.append(Route.titleSubtitle)

@@ -10,8 +10,10 @@ import SwiftUI
 struct CustomNavigationBar: View {
   @Environment(\.dismiss) private var dismiss
   let showBackButton: Bool
-  let title: String
+  let title: String?
+  let titleLabel: AnyView?
   let subtitle: String?
+  let subtitleLabel: AnyView?
   
   var body: some View {
     HStack {
@@ -45,23 +47,59 @@ private extension CustomNavigationBar {
   
   private var titleSection: some View {
     VStack {
-      Text(title)
-        .font(.title)
-        .fontWeight(.semibold)
+      if let title {
+        Text(title)
+          .font(.title)
+          .fontWeight(.semibold)
+      }
+      if let titleLabel {
+        titleLabel
+      }
       if let subtitle {
         Text(subtitle)
+      }
+      if let subtitleLabel {
+        subtitleLabel
       }
     }
   }
 }
 
-#Preview {
+#Preview("Titles") {
   VStack {
     CustomNavigationBar(
       showBackButton: true,
       title: "Title",
-      subtitle: "Subtitle"
+      titleLabel: nil,
+      subtitle: "Subtitle",
+      subtitleLabel: nil
     )
     Spacer()
   }
 }
+
+#Preview("Labels") {
+  VStack {
+    CustomNavigationBar(
+      showBackButton: true,
+      title: nil,
+      titleLabel: AnyView(
+        HStack {
+          Image(systemName: "text.document.fill")
+          Text("Title label")
+            .font(.title)
+            .fontWeight(.semibold)
+        }
+      ),
+      subtitle: nil,
+      subtitleLabel: AnyView(
+        HStack {
+          Image(systemName: "text.document.fill")
+          Text("Subtitle label")
+        }
+      )
+    )
+    Spacer()
+  }
+}
+
